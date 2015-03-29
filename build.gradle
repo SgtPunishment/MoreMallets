@@ -53,7 +53,6 @@ dependencies {
 	compile name: 'extrautilities', version: "${extutil_version}", ext: 'jar'
 	compile name: 'Botania', version: "${botania_version}", ext: 'jar'
 	compile name: 'Baubles', version: "${baubles_version}", ext: 'jar'
-	compile fileTree(dir: 'libs', include: ['*.jar'])
 	compile fileTree(dir: 'libs', include: '*.jar')
 	compile fileTree(dir: 'Libraries', include: '*.jar')
 
