@@ -8,9 +8,9 @@ import net.minecraftforge.common.MinecraftForge;
 import com.whammich.moremallets.utils.CreativeTabMoreMallets;
 import com.whammich.moremallets.utils.Modlogger;
 import com.whammich.moremallets.utils.Reference;
-import com.whammich.roadblock.item.ItemBotaniaMallet;
+import com.whammich.moremallets.items.ItemBotaniaMallet;
 import com.whammich.roadblock.item.ItemMallet;
-import com.whammich.roadblock.item.ItemUnstableMallet;
+import com.whammich.moremallets.items.ItemUnstableMallet;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
