@@ -12,7 +12,8 @@
 /.idea/
 /.metadata/
 /.settings/
-#/libs/
+/libs/
+../libs/
 
 # File Extensions
 *.psd
