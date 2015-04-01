@@ -53,28 +53,28 @@ public class MoreMallets {
 		Modlogger.info("Registering Items");
 		
 		if (Loader.isModLoaded("SSTOW")) {
-			souliumMallet = new ItemMallet(com.whammich.sstow.utils.Register.SOULIUM, "stickWood", "ingotSoulium", Reference.modid + ":souliummallet").setCreativeTab(tabMoreMallets).setUnlocalizedName(Reference.modid + ".mallet.soulium");
+			souliumMallet = new ItemMallet(com.whammich.sstow.utils.Register.SOULIUM, "stickWood", "ingotSoulium", Reference.modid + ":mallet_soulium").setCreativeTab(tabMoreMallets).setUnlocalizedName(Reference.modid + ".mallet.soulium");
 			GameRegistry.registerItem(souliumMallet, "SouliumMallet");
 		}
 		
 		if (Loader.isModLoaded("Botania")) {
-			manaMallet = new ItemBotaniaMallet(vazkii.botania.api.BotaniaAPI.manasteelToolMaterial, "livingwoodTwig", "ingotManasteel", Reference.modid + ":manasteelmallet").setCreativeTab(tabMoreMallets);
+			manaMallet = new ItemBotaniaMallet(vazkii.botania.api.BotaniaAPI.manasteelToolMaterial, "livingwoodTwig", "ingotManasteel", Reference.modid + ":mallet_manasteel").setCreativeTab(tabMoreMallets);
 			GameRegistry.registerItem(manaMallet, "ManasteelMallet");
 
-			terraMallet = new ItemBotaniaMallet(vazkii.botania.api.BotaniaAPI.terrasteelToolMaterial, "livingwoodTwig", "ingotTerrasteel", Reference.modid + ":terrasteelmallet").setCreativeTab(tabMoreMallets);
+			terraMallet = new ItemBotaniaMallet(vazkii.botania.api.BotaniaAPI.terrasteelToolMaterial, "livingwoodTwig", "ingotTerrasteel", Reference.modid + ":mallet_terrasteel").setCreativeTab(tabMoreMallets);
 			GameRegistry.registerItem(terraMallet, "TerrasteelMallet");
 
-			elementMallet = new ItemBotaniaMallet(vazkii.botania.api.BotaniaAPI.elementiumToolMaterial, "dreamwoodTwig", "ingotElvenElementium", Reference.modid + ":elementiummallet").setCreativeTab(tabMoreMallets);
+			elementMallet = new ItemBotaniaMallet(vazkii.botania.api.BotaniaAPI.elementiumToolMaterial, "dreamwoodTwig", "ingotElvenElementium", Reference.modid + ":mallet_elementium").setCreativeTab(tabMoreMallets);
 			GameRegistry.registerItem(elementMallet, "ElementiumMallet");
 		}
 
 		if (Loader.isModLoaded("ExtraUtilities")) {
-			unstableMallet = new ItemUnstableMallet(ToolMaterial.EMERALD, "blockObsidian", "ingotUnstable", Reference.modid + ":unstablemallet").setCreativeTab(tabMoreMallets);
+			unstableMallet = new ItemUnstableMallet(ToolMaterial.EMERALD, "blockObsidian", "ingotUnstable", Reference.modid + ":mallet_unstable").setCreativeTab(tabMoreMallets);
 			GameRegistry.registerItem(unstableMallet, "UnstableMallet");
 		}
 		
 		if(Loader.isModLoaded("AWWayofTime")) {
-			boundMallet = new ItemBoundMallet(AlchemicalWizardry.bloodBoundToolMaterial, "stickWood", "ingotSoulium", Reference.modid + ":boundmallet").setCreativeTab(tabMoreMallets);
+			boundMallet = new ItemBoundMallet(AlchemicalWizardry.bloodBoundToolMaterial, "stickWood", "ingotSoulium", Reference.modid + ":mallet_bound").setCreativeTab(tabMoreMallets);
 			GameRegistry.registerItem(boundMallet, "BoundMallet");
 			BindingRegistry.registerRecipe(new ItemStack(boundMallet), new ItemStack(Register.diamondMallet));
 		}

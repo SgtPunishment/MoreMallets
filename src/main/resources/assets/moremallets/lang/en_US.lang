@@ -7,6 +7,12 @@ item.moremallets.mallet.manasteel.name=Manasteel Paving Mallet
 item.moremallets.mallet.terrasteel.name=Terrasteel Paving Mallet
 item.moremallets.mallet.b_elementium.name=Elementium Paving Mallet
 item.moremallets.mallet.unstable.name=Unstable Paving Mallet
+item.moremallets.mallet.bound.name=Bound Paving Mallet
+
+# Tooltips
+ttip.moremallets.bound.activated=Activated
+ttip.moremallets.bound.deactivated=Deactivated
+ttip.moremallets.bound.owner=Current Owner: %s
 
 # Console
 info.moremallets.config.reload=Refreshing configuration file.

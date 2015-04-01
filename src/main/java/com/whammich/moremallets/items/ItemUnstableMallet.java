@@ -36,8 +36,6 @@ public class ItemUnstableMallet extends ItemMallet implements
 		this.icons = new IIcon[2];
 		this.itemIcon = (this.icons[0] = iconRegister.registerIcon(tex));
 		this.icons[1] = iconRegister.registerIcon(tex + "1");
-		// itemIcon = iconRegister.registerIcon(Reference.modid +
-		// ":unstablemallet");
 	}
 
 	@Override
