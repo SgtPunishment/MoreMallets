@@ -33,6 +33,7 @@ public class MoreMallets {
 	public static Item terraMallet;
 	public static Item elementMallet;
 	public static Item unstableMallet;
+	public static Item bedrockMallet;
 	public static Item boundMallet;
 
 	@Instance(Reference.modid)
@@ -71,6 +72,11 @@ public class MoreMallets {
 		if (Loader.isModLoaded("ExtraUtilities")) {
 			unstableMallet = new ItemUnstableMallet(ToolMaterial.EMERALD, "blockObsidian", "ingotUnstable", Reference.modid + ":mallet_unstable").setCreativeTab(tabMoreMallets);
 			GameRegistry.registerItem(unstableMallet, "UnstableMallet");
+			
+			Item bedrockiumIngot = GameRegistry.findItem("ExtraUtilities", "bedrockiumIngot");
+			
+			bedrockMallet = new ItemMallet(ToolMaterial.EMERALD, "stickWood", bedrockiumIngot.toString(), Reference.modid + ":mallet_bedrockium").setCreativeTab(tabMoreMallets).setUnlocalizedName(Reference.modid + ".mallet.bedrockium").setMaxDamage(-1);
+			GameRegistry.registerItem(bedrockMallet, "BedrockiumMallet");
 		}
 		
 		if(Loader.isModLoaded("AWWayofTime")) {

@@ -8,6 +8,7 @@ item.moremallets.mallet.terrasteel.name=Terrasteel Paving Mallet
 item.moremallets.mallet.b_elementium.name=Elementium Paving Mallet
 item.moremallets.mallet.unstable.name=Unstable Paving Mallet
 item.moremallets.mallet.bound.name=Bound Paving Mallet
+item.moremallets.mallet.bedrockium.name=Bedrockium Paving Mallet
 
 # Tooltips
 ttip.moremallets.bound.activated=Activated

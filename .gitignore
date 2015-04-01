@@ -12,7 +12,7 @@
 /.idea/
 /.metadata/
 /.settings/
-/libs/
+#/libs/
 
 # File Extensions
 *.psd
