@@ -9,7 +9,7 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import com.rwtema.extrautils.item.IItemMultiTransparency;
 import com.rwtema.extrautils.item.RenderItemMultiTransparency;
 import com.whammich.roadblock.item.ItemMallet;
-import com.whammich.roadblock.utils.Reference;
+import com.whammich.moremallets.utils.Reference;
 
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
@@ -20,24 +20,22 @@ public class ItemUnstableMallet extends ItemMallet implements
 		IItemMultiTransparency {
 
 	private IIcon[] icons;
+	private String tex;
 
-	public ItemUnstableMallet(Item.ToolMaterial material, String handle,
-			String head) {
-		super(material, handle, head);
+	public ItemUnstableMallet(Item.ToolMaterial material, String handle, String head, String texture) {
+		super(material, handle, head, texture);
 		setUnlocalizedName(Reference.modid + ".mallet.unstable");
-		this.setMaxDamage(-1);
-		MinecraftForgeClient.registerItemRenderer(this,
-				new RenderItemMultiTransparency());
+		setMaxDamage(-1);
+		tex = texture;
+		MinecraftForgeClient.registerItemRenderer(this, new RenderItemMultiTransparency());
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerIcons(IIconRegister iconRegister) {
 		this.icons = new IIcon[2];
-		this.itemIcon = (this.icons[0] = iconRegister
-				.registerIcon(Reference.modid + ":unstablemallet"));
-		this.icons[1] = iconRegister.registerIcon(Reference.modid
-				+ ":unstablemallet1");
+		this.itemIcon = (this.icons[0] = iconRegister.registerIcon(tex));
+		this.icons[1] = iconRegister.registerIcon(tex + "1");
 		// itemIcon = iconRegister.registerIcon(Reference.modid +
 		// ":unstablemallet");
 	}

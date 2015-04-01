@@ -3,14 +3,19 @@ package com.whammich.moremallets;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import WayofTime.alchemicalWizardry.AlchemicalWizardry;
+import WayofTime.alchemicalWizardry.api.bindingRegistry.BindingRegistry;
 
+import com.whammich.moremallets.items.ItemBotaniaMallet;
+import com.whammich.moremallets.items.ItemBoundMallet;
+import com.whammich.moremallets.items.ItemUnstableMallet;
 import com.whammich.moremallets.utils.CreativeTabMoreMallets;
 import com.whammich.moremallets.utils.Modlogger;
 import com.whammich.moremallets.utils.Reference;
-import com.whammich.moremallets.items.ItemBotaniaMallet;
 import com.whammich.roadblock.item.ItemMallet;
-import com.whammich.moremallets.items.ItemUnstableMallet;
+import com.whammich.roadblock.utils.Register;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
@@ -28,6 +33,7 @@ public class MoreMallets {
 	public static Item terraMallet;
 	public static Item elementMallet;
 	public static Item unstableMallet;
+	public static Item boundMallet;
 
 	@Instance(Reference.modid)
 	public static MoreMallets instance;
@@ -45,36 +51,32 @@ public class MoreMallets {
 	public void init(FMLInitializationEvent event) {
 		// Register Items
 		Modlogger.info("Registering Items");
+		
 		if (Loader.isModLoaded("SSTOW")) {
-			souliumMallet = new ItemMallet(
-					com.whammich.sstow.utils.Register.SOULIUM, "stickWood",
-					"ingotSoulium").setCreativeTab(tabMoreMallets);
+			souliumMallet = new ItemMallet(com.whammich.sstow.utils.Register.SOULIUM, "stickWood", "ingotSoulium", Reference.modid + ":souliummallet").setCreativeTab(tabMoreMallets).setUnlocalizedName(Reference.modid + ".mallet.soulium");
 			GameRegistry.registerItem(souliumMallet, "SouliumMallet");
 		}
+		
 		if (Loader.isModLoaded("Botania")) {
-			manaMallet = new ItemBotaniaMallet(
-					vazkii.botania.api.BotaniaAPI.manasteelToolMaterial,
-					"livingwoodTwig", "ingotManasteel")
-					.setCreativeTab(tabMoreMallets);
+			manaMallet = new ItemBotaniaMallet(vazkii.botania.api.BotaniaAPI.manasteelToolMaterial, "livingwoodTwig", "ingotManasteel", Reference.modid + ":manasteelmallet").setCreativeTab(tabMoreMallets);
 			GameRegistry.registerItem(manaMallet, "ManasteelMallet");
 
-			terraMallet = new ItemBotaniaMallet(
-					vazkii.botania.api.BotaniaAPI.terrasteelToolMaterial,
-					"livingwoodTwig", "ingotTerrasteel")
-					.setCreativeTab(tabMoreMallets);
+			terraMallet = new ItemBotaniaMallet(vazkii.botania.api.BotaniaAPI.terrasteelToolMaterial, "livingwoodTwig", "ingotTerrasteel", Reference.modid + ":terrasteelmallet").setCreativeTab(tabMoreMallets);
 			GameRegistry.registerItem(terraMallet, "TerrasteelMallet");
 
-			elementMallet = new ItemBotaniaMallet(
-					vazkii.botania.api.BotaniaAPI.elementiumToolMaterial,
-					"dreamwoodTwig", "ingotElvenElementium")
-					.setCreativeTab(tabMoreMallets);
+			elementMallet = new ItemBotaniaMallet(vazkii.botania.api.BotaniaAPI.elementiumToolMaterial, "dreamwoodTwig", "ingotElvenElementium", Reference.modid + ":elementiummallet").setCreativeTab(tabMoreMallets);
 			GameRegistry.registerItem(elementMallet, "ElementiumMallet");
 		}
 
 		if (Loader.isModLoaded("ExtraUtilities")) {
-			unstableMallet = new ItemUnstableMallet(ToolMaterial.EMERALD,
-					"blockObsidian", "ingotUnstable").setCreativeTab(tabMoreMallets);
+			unstableMallet = new ItemUnstableMallet(ToolMaterial.EMERALD, "blockObsidian", "ingotUnstable", Reference.modid + ":unstablemallet").setCreativeTab(tabMoreMallets);
 			GameRegistry.registerItem(unstableMallet, "UnstableMallet");
+		}
+		
+		if(Loader.isModLoaded("AWWayofTime")) {
+			boundMallet = new ItemBoundMallet(AlchemicalWizardry.bloodBoundToolMaterial, "stickWood", "ingotSoulium", Reference.modid + ":boundmallet").setCreativeTab(tabMoreMallets);
+			GameRegistry.registerItem(boundMallet, "BoundMallet");
+			BindingRegistry.registerRecipe(new ItemStack(boundMallet), new ItemStack(Register.diamondMallet));
 		}
 	}
 }
