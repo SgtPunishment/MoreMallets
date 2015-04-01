@@ -54,11 +54,7 @@ dependencies {
 	compile name: 'Botania', version: "${botania_version}", ext: 'jar'
 	compile name: 'Baubles', version: "${baubles_version}", ext: 'jar'
 	compile fileTree(dir: 'libs', include: '*.jar')
-	compile fileTree(dir: 'Libraries', include: '*.jar')
-	
-	compile files (
-		"libs/BloodMagic-1.7.10-1.3.1Beta1-11-deobf.jar"
-	)
+
 }
 
 minecraft {
