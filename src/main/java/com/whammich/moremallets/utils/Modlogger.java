@@ -1,10 +1,9 @@
 package com.whammich.moremallets.utils;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.whammich.roadblock.utils.Config;
 import com.whammich.roadblock.utils.Reference;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Modlogger {
 

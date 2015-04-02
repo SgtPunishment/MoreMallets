@@ -1,10 +1,12 @@
-package com.whammich.moremallets.items;
+package com.whammich.moremallets.items.mallets;
 
+import com.whammich.moremallets.items.ItemMalletBase;
+import com.whammich.moremallets.items.MalletType;
+import com.whammich.roadblock.block.BlockRoadBase;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import vazkii.botania.api.mana.IManaUsingItem;
@@ -12,20 +14,12 @@ import vazkii.botania.api.mana.ManaItemHandler;
 import vazkii.botania.common.item.ModItems;
 import vazkii.botania.common.item.equipment.tool.ToolCommons;
 
-import com.whammich.moremallets.utils.Reference;
-import com.whammich.roadblock.block.BlockRoadBase;
-import com.whammich.roadblock.item.ItemMallet;
-
-public class ItemBotaniaMallet extends ItemMallet implements IManaUsingItem {
+public class ItemMalletMana extends ItemMalletBase implements IManaUsingItem {
 
 	private static final int MANA_PER_DAMAGE = 60;
 
-	String toolMaterial;
-
-	public ItemBotaniaMallet(Item.ToolMaterial material, String handle, String head, String texture) {
-		super(material, handle, head, texture);
-		String toolMaterial = material.toString().toLowerCase();
-		setUnlocalizedName(Reference.modid + ".mallet." + toolMaterial);
+	public ItemMalletMana(MalletType type) {
+		super(type);
 	}
 
 	@Override
@@ -37,7 +31,7 @@ public class ItemBotaniaMallet extends ItemMallet implements IManaUsingItem {
 	@Override
 	public boolean onBlockDestroyed(ItemStack stack, World world, Block block, int xCoord, int yCoord, int zCoord, EntityLivingBase player) {
 		if ((double) block.getBlockHardness(world, xCoord, yCoord, zCoord) != 0.0D)
-			ToolCommons.damageItem(stack, 2, player, MANA_PER_DAMAGE);
+			ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
 		return true;
 	}
 
@@ -47,21 +41,22 @@ public class ItemBotaniaMallet extends ItemMallet implements IManaUsingItem {
 			if (world.getBlockMetadata(xCoord, yCoord, zCoord) == 0) {
 				world.setBlock(xCoord, yCoord, zCoord, world.getBlock(xCoord, yCoord, zCoord), 1, 3);
 				world.markBlockForUpdate(xCoord, yCoord, zCoord);
-				ToolCommons.damageItem(stack, 2, player, MANA_PER_DAMAGE);
+				ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
 				return true;
 			} else {
 				world.setBlock(xCoord, yCoord, zCoord, world.getBlock(xCoord, yCoord, zCoord), 0, 3);
 				world.markBlockForUpdate(xCoord, yCoord, zCoord);
-				ToolCommons.damageItem(stack, 2, player, MANA_PER_DAMAGE);
+				ToolCommons.damageItem(stack, 1, player, MANA_PER_DAMAGE);
 				return true;
 			}
 		}
+
 		return false;
 	}
 
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack) {
-		return par2ItemStack.getItem() == ModItems.manaResource && par2ItemStack.getItemDamage() == 0 ? true : super.getIsRepairable(par1ItemStack, par2ItemStack);
+	public boolean getIsRepairable(ItemStack mallet, ItemStack material) {
+		return material.getItem() == ModItems.manaResource && material.getItemDamage() == 0 || super.getIsRepairable(mallet, material);
 	}
 
 	@Override
