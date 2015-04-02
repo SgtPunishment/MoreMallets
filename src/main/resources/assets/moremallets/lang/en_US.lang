@@ -5,10 +5,11 @@ itemGroup.moremallets.creativeTab=More Mallets
 item.moremallets.mallet.soulium.name=Soulium Paving Mallet
 item.moremallets.mallet.manasteel.name=Manasteel Paving Mallet
 item.moremallets.mallet.terrasteel.name=Terrasteel Paving Mallet
-item.moremallets.mallet.b_elementium.name=Elementium Paving Mallet
+item.moremallets.mallet.elementium.name=Elementium Paving Mallet
 item.moremallets.mallet.unstable.name=Unstable Paving Mallet
 item.moremallets.mallet.bound.name=Bound Paving Mallet
 item.moremallets.mallet.bedrockium.name=Bedrockium Paving Mallet
+item.moremallets.mallet.flaxsteam.name=Steam-Powered Paving Mallet
 
 # Tooltips
 ttip.moremallets.bound.activated=Activated
