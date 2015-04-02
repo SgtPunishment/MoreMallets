@@ -5,7 +5,6 @@ import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import com.whammich.moremallets.items.ItemMalletBase;
 import com.whammich.moremallets.items.MalletType;
 import com.whammich.moremallets.utils.Reference;
-import com.whammich.sstow.utils.ModLogger;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
