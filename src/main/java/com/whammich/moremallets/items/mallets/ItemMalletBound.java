@@ -1,12 +1,7 @@
 package com.whammich.moremallets.items.mallets;
 
-import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
-import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
-import com.whammich.moremallets.items.ItemMalletBase;
-import com.whammich.moremallets.items.MalletType;
-import com.whammich.moremallets.utils.Reference;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,26 +11,44 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import WayofTime.alchemicalWizardry.api.items.interfaces.IBindable;
+import WayofTime.alchemicalWizardry.common.items.EnergyItems;
 
-import java.util.List;
+import com.whammich.moremallets.items.ItemMalletBase;
+import com.whammich.moremallets.items.MalletType;
+import com.whammich.moremallets.utils.Reference;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemMalletBound extends ItemMalletBase implements IBindable {
 
+	private int energyUsed;
 	private static IIcon active;
 	private static IIcon passive;
 
 	public ItemMalletBound() {
-        super(MalletType.BOUND);
+		super(MalletType.BOUND);
+		this.setEnergyUsed(5);
+		this.attackDmg = 3.0F;
+	}
 
-        this.attackDmg = 3.0F;
+	public void setEnergyUsed(int i) {
+		energyUsed = i;
+	}
+
+	public int getEnergyUsed() {
+		return this.energyUsed;
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		SoulNetworkHandler.checkAndSetItemOwner(stack, player);
+	public ItemStack onItemRightClick(ItemStack stack, World world,
+			EntityPlayer player) {
+		EnergyItems.checkAndSetItemOwner(stack, player);
 		if (player.isSneaking()) {
 			setActivated(stack, !getActivated(stack));
-			stack.stackTagCompound.setInteger("worldTimeDelay", (int) (world.getWorldTime() - 1) % 100);
+			stack.stackTagCompound.setInteger("worldTimeDelay",
+					(int) (world.getWorldTime() - 1) % 200);
 			return stack;
 		}
 		if (!getActivated(stack))
@@ -47,12 +60,13 @@ public class ItemMalletBound extends ItemMalletBase implements IBindable {
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister iconRegister) {
 		active = iconRegister.registerIcon(Reference.modid + ":mallet_bound");
-        passive = iconRegister.registerIcon("AlchemicalWizardry:SheathedItem");
-        itemIcon = active;
-    }
+		passive = iconRegister.registerIcon("AlchemicalWizardry:SheathedItem");
+		itemIcon = active;
+	}
 
 	@Override
-	public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
+	public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player,
+			ItemStack usingItem, int useRemaining) {
 		if (stack.stackTagCompound == null) {
 			stack.setTagCompound(new NBTTagCompound());
 		}
@@ -64,7 +78,8 @@ public class ItemMalletBound extends ItemMalletBase implements IBindable {
 	}
 
 	@Override
-	public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) {
+	public void onUpdate(ItemStack stack, World world, Entity entity, int par4,
+			boolean par5) {
 		if (!(entity instanceof EntityPlayer))
 			return;
 
@@ -72,9 +87,14 @@ public class ItemMalletBound extends ItemMalletBase implements IBindable {
 		if (stack.stackTagCompound == null)
 			stack.setTagCompound(new NBTTagCompound());
 
-		if (world.getWorldTime() % 200 == stack.stackTagCompound.getInteger("worldTimeDelay") && stack.stackTagCompound.getBoolean("isActive")) {
-			if (!player.capabilities.isCreativeMode)
-				SoulNetworkHandler.syphonAndDamageFromNetwork(stack, player, 20);
+		if (world.getWorldTime() % 200 == stack.stackTagCompound
+				.getInteger("worldTimeDelay")
+				&& stack.stackTagCompound.getBoolean("isActive")) {
+			if (!player.capabilities.isCreativeMode) {
+				if (!EnergyItems.syphonBatteries(stack, player, 20)) {
+					this.setActivated(stack, false);
+				}
+			}
 		}
 
 		stack.setItemDamage(0);
@@ -83,14 +103,19 @@ public class ItemMalletBound extends ItemMalletBase implements IBindable {
 	@Override
 	@SideOnly(Side.CLIENT)
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4) {
+	public void addInformation(ItemStack stack, EntityPlayer player, List list,
+			boolean par4) {
 		if (stack.stackTagCompound != null) {
 			if (stack.stackTagCompound.getBoolean("isActive"))
-				list.add(StatCollector.translateToLocal("ttip.moremallets.bound.activated"));
+				list.add(StatCollector
+						.translateToLocal("ttip.moremallets.bound.activated"));
 			else
-				list.add(StatCollector.translateToLocal("ttip.moremallets.bound.deactivated"));
+				list.add(StatCollector
+						.translateToLocal("ttip.moremallets.bound.deactivated"));
 			if (!stack.stackTagCompound.getString("ownerName").equals(""))
-				list.add(String.format(StatCollector.translateToLocal("ttip.moremallets.bound.owner"), stack.stackTagCompound.getString("ownerName")));
+				list.add(String.format(StatCollector
+						.translateToLocal("ttip.moremallets.bound.owner"),
+						stack.stackTagCompound.getString("ownerName")));
 		}
 	}
 
@@ -122,17 +147,17 @@ public class ItemMalletBound extends ItemMalletBase implements IBindable {
 		return true;
 	}
 
-    @Override
-    public boolean canMallet(World world, EntityPlayer player, ItemStack stack) {
-        NBTTagCompound itemTag = stack.stackTagCompound;
-        if (itemTag == null)
-            stack.setTagCompound(new NBTTagCompound());
+	@Override
+	public boolean canMallet(World world, EntityPlayer player, ItemStack stack) {
+		NBTTagCompound itemTag = stack.stackTagCompound;
+		if (itemTag == null)
+			stack.setTagCompound(new NBTTagCompound());
 
-        return itemTag.getBoolean("isActive");
-    }
+		return itemTag.getBoolean("isActive");
+	}
 
-    @Override
-    public boolean onMallet(World world, EntityPlayer player, ItemStack stack) {
-        return false;
-    }
+	@Override
+	public boolean onMallet(World world, EntityPlayer player, ItemStack stack) {
+		return false;
+	}
 }
