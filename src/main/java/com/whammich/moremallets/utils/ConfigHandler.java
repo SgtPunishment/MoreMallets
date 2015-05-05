@@ -4,9 +4,16 @@ import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;
 
+import com.whammich.roadblock.utils.Config;
+
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+
 public class ConfigHandler {
 
-    public static Configuration config;
+	public static Configuration config;
+
+	public static File configDirectory;
 
     static String category;
 
@@ -25,10 +32,16 @@ public class ConfigHandler {
     public static int durabilityMalletSoulium;
     public static int durabilityMalletFlaxSteam;
 
-    public static void init(File file) {
-        config = new Configuration(file);
-        syncConfig();
-    }
+    public static void init(FMLPreInitializationEvent event) {
+		FMLCommonHandler.instance().bus().register(new Config());
+		configDirectory = new File(event.getModConfigurationDirectory() + "/Whammich/");
+		if (!configDirectory.exists()) {
+			configDirectory.mkdir();
+		}
+		File configFile = new File(configDirectory, "MoreMallets.cfg");
+		config = new Configuration(configFile);
+		syncConfig();
+	}
 
     public static void syncConfig() {
         category = "Mallets";
